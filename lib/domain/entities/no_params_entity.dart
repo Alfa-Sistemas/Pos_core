@@ -1,0 +1,3 @@
+class NoParamsEntity {
+  const NoParamsEntity();
+}
