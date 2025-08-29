@@ -1,18 +1,18 @@
-part of 'estorno_bloc.dart';
+part of 'refund_bloc.dart';
 
-abstract class EstornoEvent {}
+abstract class RefundEvent {}
 
-class EstornoIniciou extends EstornoEvent {
+class EstornoIniciou extends RefundEvent {
   final int valor;
 
-  final int atk;
+  final String atk;
 
   final bool permiteEditarValor;
 
   EstornoIniciou(this.valor, this.atk, this.permiteEditarValor);
 }
 
-class EstornoFinalizou extends EstornoEvent {
+class EstornoFinalizou extends RefundEvent {
   final String result;
 
   EstornoFinalizou(this.result);

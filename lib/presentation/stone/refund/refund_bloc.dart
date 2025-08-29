@@ -2,30 +2,34 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stone_deep_link/stone_deep_link.dart';
+import 'package:pos_core/domain/dtos/refund_params.dart';
+import 'package:pos_core/domain/usecases/refund/refund_usecase.dart';
 
-part 'estorno_event.dart';
-part 'estorno_state.dart';
+part 'refund_event.dart';
+part 'refund_state.dart';
 
-class EstornoBloc extends Bloc<EstornoEvent, EstornoState> {
-  EstornoBloc(this.stoneDeepLink) : super(EstornoNaoInicilizado()) {
+class RefundBloc extends Bloc<RefundEvent, RefundState> {
+  final RefundUsecase refundUsecase;
+  RefundBloc(this.refundUsecase) : super(EstornoNaoInicilizado()) {
     on<EstornoIniciou>(_onEstornoIniciou);
     on<EstornoFinalizou>(_onEstornoFinalizou);
   }
 
-  final StoneDeepLink stoneDeepLink;
   late StreamSubscription<String> _streamSubscription;
 
   FutureOr<void> _onEstornoIniciou(
     EstornoIniciou event,
-    Emitter<EstornoState> emit,
+    Emitter<RefundState> emit,
   ) async {
     emit(EstornoEmProgresso());
 
-    stoneDeepLink.fazerEstorno(
-      event.valor,
-      event.atk,
-      event.permiteEditarValor,
+    refundUsecase.execute(
+      RefundParams(
+        event.valor,
+        event.permiteEditarValor,
+        event.atk,
+        "transactionId",
+      ),
     );
   }
 
@@ -37,7 +41,7 @@ class EstornoBloc extends Bloc<EstornoEvent, EstornoState> {
 
   FutureOr<void> _onEstornoFinalizou(
     EstornoFinalizou event,
-    Emitter<EstornoState> emit,
+    Emitter<RefundState> emit,
   ) async {
     try {
       var uri = Uri.parse(event.result);

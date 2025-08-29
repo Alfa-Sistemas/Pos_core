@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 
 Future<Map<String, dynamic>?> showEstornoModal(
   BuildContext context, {
   required int valor,
-  required int atk,
+  required String atk,
   required bool permiteEditarValor,
   required String deepLinkReturnSchema,
 }) async {
@@ -26,11 +28,11 @@ Future<Map<String, dynamic>?> showEstornoModal(
 
 class EstornoModal extends StatelessWidget {
   final int valor;
-  final int atk;
+  final String atk;
   final bool permiteEditarValor;
   final String deepLinkReturnSchema;
 
-  const EstornoModal({
+  EstornoModal({
     required this.atk,
     required this.valor,
     required this.permiteEditarValor,
@@ -38,15 +40,14 @@ class EstornoModal extends StatelessWidget {
     super.key,
   });
 
+  final refundBloc = GetIt.I.get<RefundBloc>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EstornoBloc(
-        StoneDeepLink(),
-      )..add(
-          EstornoIniciou(valor, atk, permiteEditarValor),
-        ),
-      child: BlocListener<EstornoBloc, EstornoState>(
+      create: (context) =>
+          refundBloc..add(EstornoIniciou(valor, atk, permiteEditarValor)),
+      child: BlocListener<RefundBloc, RefundState>(
         listener: (context, state) {
           if (state is EstornoSucesso) {
             Navigator.of(context).pop(state.resultado);
@@ -61,9 +62,7 @@ class EstornoModal extends StatelessWidget {
             children: [
               const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CloseButton(),
-                ],
+                children: [CloseButton()],
               ),
               Expanded(
                 child: Center(
@@ -74,7 +73,7 @@ class EstornoModal extends StatelessWidget {
                     child: const Text('Cancelar operação'),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -1,14 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+
 import 'package:pos_core/domain/enums/interest_charging.dart';
 import 'package:pos_core/domain/enums/payment_methods.dart';
-import 'package:pos_core/presentation/stone/pagamento_bloc/pagamento_event.dart';
-import 'package:pos_core/presentation/stone/pagamento_bloc/pagamento_state.dart';
-import 'package:stone_deep_link/presentaion/pagamento_bloc/pagamento_event.dart';
-import 'package:stone_deep_link/presentaion/pagamento_bloc/pagamento_state.dart';
-import 'package:stone_deep_link/stone_deep_link.dart';
-
-import 'pagamento_bloc/pagamento_bloc.dart';
+import 'package:pos_core/presentation/stone/payment/payment_bloc.dart';
+import 'package:pos_core/presentation/stone/payment/payment_event.dart';
+import 'package:pos_core/presentation/stone/payment/payment_state.dart';
 
 Future<Map<String, dynamic>?> showPagamentoModal(
   BuildContext context, {
@@ -16,6 +15,7 @@ Future<Map<String, dynamic>?> showPagamentoModal(
   required int valor,
   required int parcelas,
   required String deepLinkReturnSchema,
+  required bool printAutomaticaly,
   required InterestCharging formaDeCobranca,
 }) async {
   return showModalBottomSheet(
@@ -28,6 +28,7 @@ Future<Map<String, dynamic>?> showPagamentoModal(
         formaDePagamento: formaDePagamento,
         valor: valor,
         parcelas: parcelas,
+        printAutomaticaly: printAutomaticaly,
         deepLinkReturnSchema: deepLinkReturnSchema,
         formaDeCobrancaDeJuros: formaDeCobranca,
       );
@@ -41,31 +42,35 @@ class PagamentoModal extends StatelessWidget {
   final int parcelas;
   final String deepLinkReturnSchema;
   final InterestCharging formaDeCobrancaDeJuros;
+  final bool printAutomaticaly;
 
-  const PagamentoModal({
+  PagamentoModal({
+    super.key,
     required this.formaDePagamento,
     required this.valor,
     required this.parcelas,
     required this.deepLinkReturnSchema,
     required this.formaDeCobrancaDeJuros,
-    super.key,
+    required this.printAutomaticaly,
   });
+
+  final paymentBloc = GetIt.I.get<PaymentBloc>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PagamentoBloc(
-        StoneDeepLink(),
-      )..add(
-          PagamentoIniciou(
-            formaDePagamento: formaDePagamento,
-            valor: valor,
-            parcelas: parcelas,
-            deepLinkReturnSchema: deepLinkReturnSchema,
-            formaDeCobrancaDeJuros: formaDeCobrancaDeJuros,
+      create: (context) =>
+          paymentBloc..add(
+            PagamentoIniciou(
+              formaDePagamento: formaDePagamento,
+              valor: valor,
+              parcelas: parcelas,
+              deepLinkReturnSchema: deepLinkReturnSchema,
+              printAutomaticaly: printAutomaticaly,
+              formaDeCobrancaDeJuros: formaDeCobrancaDeJuros,
+            ),
           ),
-        ),
-      child: BlocListener<PagamentoBloc, PagamentoState>(
+      child: BlocListener<PaymentBloc, PaymentState>(
         listener: (context, state) {
           if (state is PagamentoSucesso) {
             Navigator.of(context).pop(state.resultado);
@@ -80,9 +85,7 @@ class PagamentoModal extends StatelessWidget {
             children: [
               const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CloseButton(),
-                ],
+                children: [CloseButton()],
               ),
               Expanded(
                 child: Center(
@@ -93,7 +96,7 @@ class PagamentoModal extends StatelessWidget {
                     child: const Text('Cancelar operação'),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

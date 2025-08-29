@@ -1,19 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stone_deep_link/presentaion/impressora_bloc/impressora_state.dart';
-import 'package:stone_deep_link/stone_deep_link.dart';
+import 'package:pos_core/domain/usecases/payment/payment_complete_usecase.dart';
+import 'package:pos_core/domain/usecases/print/print_usecase.dart';
+import 'package:pos_core/presentation/stone/print/impressora_state.dart';
 
 import 'impressora_event.dart';
 
 class ImpressoraBloc extends Bloc<ImpressoraEvent, ImpressoraState> {
   late StreamSubscription<String> onMessageSubscription;
+  final PrintUsecase printUsecase;
+  final PaymentCompleteUsecase paymentCompleteUsecase;
 
-  final StoneDeepLink stoneDeepLink;
-  ImpressoraBloc(this.stoneDeepLink) : super(ImpressoraInicial()) {
+  ImpressoraBloc(this.printUsecase, this.paymentCompleteUsecase) : super(ImpressoraInicial()) {
     on<ImpressaIniciou>(_impressoraIniciou);
     on<ImpressoraFinalizou>(_onImpressoraFinalizou);
-    onMessageSubscription = stoneDeepLink.onPagamentoFinalizado.listen((event) {
+    onMessageSubscription = paymentCompleteUsecase.execute(null).listen((event) {
       add(ImpressoraFinalizou(result: event));
     });
   }
@@ -22,7 +24,7 @@ class ImpressoraBloc extends Bloc<ImpressoraEvent, ImpressoraState> {
     ImpressaIniciou event,
     Emitter<ImpressoraState> emit,
   ) {
-    stoneDeepLink.imprimirArquivo();
+    printUsecase.execute("path");
     emit(ImpressoraImprimirEmProgresso());
   }
 

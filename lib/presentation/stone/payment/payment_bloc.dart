@@ -2,34 +2,41 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stone_deep_link/presentaion/pagamento_bloc/pagamento_event.dart';
-import 'package:stone_deep_link/presentaion/pagamento_bloc/pagamento_state.dart';
-import 'package:stone_deep_link/stone_deep_link.dart';
+import 'package:pos_core/domain/usecases/payment/payment_complete_usecase.dart';
+import 'package:pos_core/domain/usecases/payment/payment_usecase.dart';
+import 'package:pos_core/presentation/stone/payment/payment_event.dart';
+import 'package:pos_core/presentation/stone/payment/payment_state.dart';
 
-class PagamentoBloc extends Bloc<PagamentoEvent, PagamentoState> {
-  final StoneDeepLink stoneDeepLink;
+class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
+  final MakePaymentUsecase paymentUsecase;
+  final PaymentCompleteUsecase paymentCompleteUsecase;
   late StreamSubscription<String> _streamSubscription;
-  PagamentoBloc(this.stoneDeepLink) : super(PagamentoNaoIniciado()) {
+
+  PaymentBloc(this.paymentUsecase, this.paymentCompleteUsecase)
+    : super(PagamentoNaoIniciado()) {
     on<PagamentoIniciou>(_onPagamentoIniciou);
     on<PagamentoFinalizou>(_onPagamentoFinalizou);
 
-    _streamSubscription = stoneDeepLink.onPagamentoFinalizado.listen((event) {
+    _streamSubscription = paymentCompleteUsecase.execute(null).listen((
+      event,
+    ) {
       add(PagamentoFinalizou(result: event));
     });
   }
 
   FutureOr<void> _onPagamentoIniciou(
     PagamentoIniciou event,
-    Emitter<PagamentoState> emit,
+    Emitter<PaymentState> emit,
   ) {
     try {
       emit(PagamentoEmProgresso());
-      stoneDeepLink.fazerPagamento(
+      paymentUsecase.makePayment(
         event.formaDePagamento,
         event.parcelas,
         event.valor,
-        event.deepLinkReturnSchema,
-        event.formaDeCobrancaDeJuros,
+        deepLinkReturnSchema: event.deepLinkReturnSchema,
+        // printAutomaticaly: event.,
+        formaDeCobranca: event.formaDeCobrancaDeJuros,
       );
     } catch (e, s) {
       addError(e, s);
@@ -38,7 +45,7 @@ class PagamentoBloc extends Bloc<PagamentoEvent, PagamentoState> {
 
   FutureOr<void> _onPagamentoFinalizou(
     PagamentoFinalizou event,
-    Emitter<PagamentoState> emit,
+    Emitter<PaymentState> emit,
   ) {
     try {
       var uri = Uri.parse(event.result);

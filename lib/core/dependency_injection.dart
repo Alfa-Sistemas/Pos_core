@@ -1,17 +1,31 @@
 import 'package:get_it/get_it.dart';
-import 'package:pos_core/data/datasource/pagbank/pagbank_datasource.dart';
-import 'package:pos_core/data/datasource/pagbank/pagbank_datasource_impl.dart';
-import 'package:pos_core/data/datasource/stone/stone_datasource.dart';
-import 'package:pos_core/data/datasource/stone/stone_datasource_impl.dart';
+import 'package:pos_core/data/datasource/datasource.dart';
+import 'package:pos_core/data/datasource/pagbank_datasource.dart';
+import 'package:pos_core/data/datasource/stone_datasource.dart';
+import 'package:pos_core/data/repository_impl/repository_impl.dart';
+import 'package:pos_core/domain/repositories/repository.dart';
+import 'package:pos_core/domain/usecases/payment/payment_complete_usecase.dart';
+import 'package:pos_core/domain/usecases/payment/payment_usecase.dart';
+import 'package:pos_core/domain/usecases/print/print_usecase.dart';
+import 'package:pos_core/domain/usecases/refund/refund_usecase.dart';
+import 'package:pos_core/domain/usecases/usecase_interface.dart';
+import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 
 Future<void> initInjectors() async {
+  final GetIt getIt = GetIt.instance;
   // Data
-  final GetIt _getIt = GetIt.instance;
-  _getIt.registerLazySingleton<StoneDatasource>(() => StoneDatasourceImpl());
-  _getIt.registerLazySingleton<PagbankDatasource>(() => PagbankDatasourceImpl());
+  getIt.registerLazySingleton<Datasource>(() => StoneDatasource());
+  getIt.registerLazySingleton<Datasource>(() => PagbankDatasource());
   // Repositories
-  
-  // Usecases
-  
-}
+  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));
 
+  // Usecases
+  getIt.registerLazySingleton<UsecaseInterface>(() => MakePaymentUsecase(getIt()), instanceName: "payment");
+  getIt.registerLazySingleton<UsecaseInterface>(() => PaymentCompleteUsecase(getIt()), instanceName: "paymentComplete");
+  getIt.registerLazySingleton<UsecaseInterface>(() => RefundUsecase(getIt()), instanceName: "refund");
+  getIt.registerLazySingleton<UsecaseInterface>(() => PrintUsecase(getIt()), instanceName: "print");
+
+  // Blocs
+  getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
+  getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
+}

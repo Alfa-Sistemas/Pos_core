@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'impressora_bloc/impressora_bloc.dart';
-import 'impressora_bloc/impressora_state.dart';
+import 'impressora_bloc.dart';
+import 'impressora_state.dart';
 
 class ImpressaoModal extends StatelessWidget {
   final ImpressoraBloc impressoraBloc;
