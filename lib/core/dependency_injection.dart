@@ -4,10 +4,15 @@ import 'package:pos_core/data/datasource/pagbank_datasource.dart';
 import 'package:pos_core/data/datasource/stone_datasource.dart';
 import 'package:pos_core/data/repository_impl/repository_impl.dart';
 import 'package:pos_core/domain/repositories/repository.dart';
+import 'package:pos_core/domain/usecases/device/get_device_type_usecase.dart';
+import 'package:pos_core/domain/usecases/device/get_serial_usecase.dart';
+import 'package:pos_core/domain/usecases/log/get_last_logs_usecase.dart';
+import 'package:pos_core/domain/usecases/log/save_log_usecase.dart';
 import 'package:pos_core/domain/usecases/payment/payment_complete_usecase.dart';
 import 'package:pos_core/domain/usecases/payment/payment_usecase.dart';
 import 'package:pos_core/domain/usecases/print/print_usecase.dart';
 import 'package:pos_core/domain/usecases/refund/refund_usecase.dart';
+import 'package:pos_core/domain/usecases/screen/screen_wake_usecase.dart';
 import 'package:pos_core/domain/usecases/usecase_interface.dart';
 import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 
@@ -16,6 +21,7 @@ Future<void> initInjectors() async {
   // Data
   getIt.registerLazySingleton<Datasource>(() => StoneDatasource());
   getIt.registerLazySingleton<Datasource>(() => PagbankDatasource());
+  
   // Repositories
   getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));
 
@@ -24,6 +30,11 @@ Future<void> initInjectors() async {
   getIt.registerLazySingleton<UsecaseInterface>(() => PaymentCompleteUsecase(getIt()), instanceName: "paymentComplete");
   getIt.registerLazySingleton<UsecaseInterface>(() => RefundUsecase(getIt()), instanceName: "refund");
   getIt.registerLazySingleton<UsecaseInterface>(() => PrintUsecase(getIt()), instanceName: "print");
+  getIt.registerLazySingleton<UsecaseInterface>(() => ScreenWakeUsecase(getIt()), instanceName: "screen");
+  getIt.registerLazySingleton<UsecaseInterface>(() => GetSerialUsecase(getIt()), instanceName: "serial");
+  getIt.registerLazySingleton<UsecaseInterface>(() => GetDeviceTypeUsecase(getIt()), instanceName: "deviceType");
+  getIt.registerLazySingleton<UsecaseInterface>(() => GetLastLogsUsecase(getIt()), instanceName: "getLog");
+  getIt.registerLazySingleton<UsecaseInterface>(() => SaveLogUsecase(getIt()), instanceName: "saveLog");
 
   // Blocs
   getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));

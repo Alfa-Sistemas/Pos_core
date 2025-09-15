@@ -29,5 +29,7 @@ abstract class Repository {
     String? transactionCode,
     String? transactionId,
   });
+  // Screen
+  Future<void> enableScreenWakeLock();
   // Scanner
 }

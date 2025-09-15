@@ -49,4 +49,10 @@ class PagbankDatasource implements Datasource {
   // TODO: implement tipoDaMaquina
   String get tipoDaMaquina => throw UnimplementedError();
   
+  @override
+  Future<void> enableScreenWakeLock() {
+    // TODO: implement enableScreenWakeLock
+    throw UnimplementedError();
+  }
+  
 }

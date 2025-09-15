@@ -29,5 +29,7 @@ abstract class Datasource {
     String? transactionCode,
     String? transactionId,
   });
+  // Screen
+  Future<void> enableScreenWakeLock();
   // Scanner
 }

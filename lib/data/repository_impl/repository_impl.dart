@@ -68,4 +68,9 @@ class RepositoryImpl implements Repository {
 
   @override
   String get tipoDaMaquina => _datasource.tipoDaMaquina;
+
+  @override
+  Future<void> enableScreenWakeLock() async {
+    return await _datasource.enableScreenWakeLock();
+  }
 }
