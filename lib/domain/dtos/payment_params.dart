@@ -1,8 +1,7 @@
 import 'package:pos_core/domain/enums/interest_charging.dart';
-import 'package:pos_core/domain/enums/payment_methods.dart';
 
 class PaymentParams {
-  final PaymentMethods paymentMethods;
+  final String paymentMethods;
   final int parcels;
   final int ammount;
   final String? deepLinkReturnSchema;

@@ -1,6 +1,7 @@
 name: pos_core
 description: "A new Flutter package project."
 version: 0.0.1
+publish_to: none
 homepage:
 
 environment:
@@ -14,6 +15,10 @@ dependencies:
   flutter_bloc: ^8.1.3
   url_launcher: ^6.3.0
   intl: any
+  stone_deep_link:
+    path: ../stone_deep_link_api
+  smart_pag:
+    path: ../smart_pag
 
 dev_dependencies:
   flutter_test:

@@ -19,8 +19,8 @@ import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 Future<void> initInjectors() async {
   final GetIt getIt = GetIt.instance;
   // Data
-  getIt.registerLazySingleton<Datasource>(() => StoneDatasource());
-  getIt.registerLazySingleton<Datasource>(() => PagbankDatasource());
+  getIt.registerLazySingleton<Datasource>(() => StoneDatasource(getIt()));
+  getIt.registerLazySingleton<Datasource>(() => PagbankDatasource(getIt()));
   
   // Repositories
   getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));

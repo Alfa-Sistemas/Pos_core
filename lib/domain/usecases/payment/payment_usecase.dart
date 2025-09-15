@@ -11,7 +11,7 @@ class MakePaymentUsecase extends UsecaseInterface<Future<PagamentoEntity>, Payme
   MakePaymentUsecase(this._paymentRepository);
 
   Future<PagamentoEntity> makePayment(
-    PaymentMethods paymentMethod,
+    String paymentMethod,
     int parcels,
     int ammount, {
     String? deepLinkReturnSchema,

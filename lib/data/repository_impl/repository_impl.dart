@@ -16,7 +16,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<PagamentoEntity> makePayment(
-    PaymentMethods formaDePagamento,
+    String formaDePagamento,
     int parcels,
     int ammount, {
     String? deepLinkReturnSchema,

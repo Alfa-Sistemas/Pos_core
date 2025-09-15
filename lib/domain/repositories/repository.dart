@@ -1,7 +1,6 @@
 import 'package:pos_core/domain/entities/log_entity.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
-import 'package:pos_core/domain/enums/payment_methods.dart';
 
 abstract class Repository {
   // Device
@@ -12,7 +11,7 @@ abstract class Repository {
   Future<String> saveLog(Log log);
   // Payment
   Future<PagamentoEntity> makePayment(
-    PaymentMethods formaDePagamento,
+    String formaDePagamento,
     int parcels,
     int ammount, {
     String? deepLinkReturnSchema,

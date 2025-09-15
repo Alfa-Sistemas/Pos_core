@@ -1,10 +1,9 @@
 import 'package:pos_core/domain/enums/interest_charging.dart';
-import 'package:pos_core/domain/enums/payment_methods.dart';
 
 abstract class PaymentEvent {}
 
 class PagamentoIniciou extends PaymentEvent {
-  final PaymentMethods formaDePagamento;
+  final String formaDePagamento;
   final int valor;
   final int parcelas;
   final String deepLinkReturnSchema;

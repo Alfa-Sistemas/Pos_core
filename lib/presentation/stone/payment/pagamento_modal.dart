@@ -4,14 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:pos_core/domain/enums/interest_charging.dart';
-import 'package:pos_core/domain/enums/payment_methods.dart';
 import 'package:pos_core/presentation/stone/payment/payment_bloc.dart';
 import 'package:pos_core/presentation/stone/payment/payment_event.dart';
 import 'package:pos_core/presentation/stone/payment/payment_state.dart';
 
 Future<Map<String, dynamic>?> showPagamentoModal(
   BuildContext context, {
-  required PaymentMethods formaDePagamento,
+  required String formaDePagamento,
   required int valor,
   required int parcelas,
   required String deepLinkReturnSchema,
@@ -37,7 +36,7 @@ Future<Map<String, dynamic>?> showPagamentoModal(
 }
 
 class PagamentoModal extends StatelessWidget {
-  final PaymentMethods formaDePagamento;
+  final String formaDePagamento;
   final int valor;
   final int parcelas;
   final String deepLinkReturnSchema;
