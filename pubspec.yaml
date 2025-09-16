@@ -26,12 +26,12 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-flutter:
- plugin:
-    platforms:
-      android:
-        package: com.example.stone_deep_link
-        pluginClass: StoneDeepLinkPlugin
+# flutter:
+#  plugin:
+#     platforms:
+#       android:
+#         package: com.poscore
+#         pluginClass: PosCorePlugin
 
   # To add assets to your package, add an assets section, like this:
   # assets:
