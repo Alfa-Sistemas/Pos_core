@@ -7,10 +7,12 @@ class PagamentoEntity {
   final String hostNSU;
   final String transactionID;
   final String transactionCode;
+  final String tipoMaquina;
   final String? erro;
 
   PagamentoEntity({
     required this.cardBrand,
+    required this.tipoMaquina,
     required this.cardBin,
     required this.nsu,
     required this.date,
@@ -26,6 +28,7 @@ class PagamentoEntity {
         nsu = 'erro ',
         date = '',
         time = '',
+        tipoMaquina = "",
         hostNSU = 'erro',
         transactionCode = 'erro',
         transactionID = 'erro';
