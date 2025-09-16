@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pos_core/core/dependency_injection.dart';
 import 'package:pos_core/domain/dtos/payment_params.dart';
 import 'package:pos_core/domain/dtos/refund_params.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
@@ -16,6 +17,8 @@ var paymentCompleteUsecase = GetIt.I.get<UsecaseInterface>(
 );
 
 class PosCore {
+  Future<void> inject() => initInjectors();
+  
   Future<String> imprimirArquivo(BuildContext context, String filePath) async {
     return await printUsecase.execute(filePath);
   }
