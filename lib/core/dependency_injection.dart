@@ -1,7 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:pos_core/data/datasource/datasource.dart';
-import 'package:pos_core/data/datasource/pagbank_datasource.dart';
-import 'package:pos_core/data/datasource/stone_datasource.dart';
 import 'package:pos_core/data/repository_impl/repository_impl.dart';
 import 'package:pos_core/domain/repositories/repository.dart';
 import 'package:pos_core/domain/usecases/device/get_device_type_usecase.dart';
@@ -19,8 +16,8 @@ import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 Future<void> initInjectors() async {
   final GetIt getIt = GetIt.instance;
   // Data
-  getIt.registerLazySingleton<Datasource>(() => StoneDatasource(getIt()));
-  getIt.registerLazySingleton<Datasource>(() => PagbankDatasource(getIt()));
+  // getIt.registerLazySingleton<Datasource>(() => Datasource());
+
   
   // Repositories
   getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));

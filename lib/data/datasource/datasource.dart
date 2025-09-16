@@ -24,6 +24,7 @@ abstract class Datasource {
   // Refund
   Future<bool> refundSale({
     int? valor,
+    int? atk,
     bool? permiteEditarValor,
     String? transactionCode,
     String? transactionId,
