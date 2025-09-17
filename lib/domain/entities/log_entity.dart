@@ -1,6 +1,6 @@
-abstract class Log {
+abstract class LogEntity {
   final String message;
   final DateTime dateTime;
 
-  Log({required this.message, required this.dateTime});
+  LogEntity({required this.message, required this.dateTime});
 }

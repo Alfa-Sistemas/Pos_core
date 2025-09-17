@@ -28,8 +28,9 @@ class RefundBloc extends Bloc<RefundEvent, RefundState> {
         event.valor,
         event.permiteEditarValor,
         event.atk,
-        "transactionId",
+        event.transactionId,
       ),
+        event.machineType
     );
   }
 

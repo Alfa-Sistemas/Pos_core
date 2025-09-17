@@ -15,7 +15,7 @@ class ImpressoraBloc extends Bloc<ImpressoraEvent, ImpressoraState> {
   ImpressoraBloc(this.printUsecase, this.paymentCompleteUsecase) : super(ImpressoraInicial()) {
     on<ImpressaIniciou>(_impressoraIniciou);
     on<ImpressoraFinalizou>(_onImpressoraFinalizou);
-    onMessageSubscription = paymentCompleteUsecase.execute(null).listen((event) {
+    onMessageSubscription = paymentCompleteUsecase.execute(null, "").listen((event) {
       add(ImpressoraFinalizou(result: event));
     });
   }
@@ -23,8 +23,8 @@ class ImpressoraBloc extends Bloc<ImpressoraEvent, ImpressoraState> {
   FutureOr<void> _impressoraIniciou(
     ImpressaIniciou event,
     Emitter<ImpressoraState> emit,
-  ) {
-    printUsecase.execute("path");
+  ) async {
+   await printUsecase.execute(event.filePath, event.machineType);
     emit(ImpressoraImprimirEmProgresso());
   }
 

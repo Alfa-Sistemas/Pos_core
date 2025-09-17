@@ -7,8 +7,8 @@ abstract class Repository {
   Future<String> serialDaMaquina();
   String get tipoDaMaquina;
   // Logs
-  Future<List<Log>> getLastLogsTransaction();
-  Future<String> saveLog(Log log);
+  Future<List<LogEntity>> getLastLogsTransaction();
+  Future<String> saveLog(LogEntity log);
   // Payment
   Future<PagamentoEntity> makePayment(
     String formaDePagamento,

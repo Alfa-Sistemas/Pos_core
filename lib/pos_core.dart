@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pos_core/core/dependency_injection.dart';
+import 'package:pos_core/data/datasource/datasource.dart';
 import 'package:pos_core/domain/dtos/payment_params.dart';
 import 'package:pos_core/domain/dtos/refund_params.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
@@ -17,10 +18,14 @@ var paymentCompleteUsecase = GetIt.I.get<UsecaseInterface>(
 );
 
 class PosCore {
+  final Datasource datasource;
+
+  PosCore(this.datasource);
+
   Future<void> inject() => initInjectors();
-  
-  Future<String> imprimirArquivo(BuildContext context, String filePath) async {
-    return await printUsecase.execute(filePath);
+
+  Future<String> imprimirArquivo(String filePath, BuildContext context, String machineType) async {
+    return await printUsecase.execute(filePath, machineType);
   }
 
   Future<PagamentoEntity> fazerPagamento(
@@ -30,6 +35,7 @@ class PosCore {
     String? deepLinkReturnSchema,
     bool? printAutomaticaly,
     InterestCharging? interestCharging,
+    required String machineType
   }) async {
     return await makePaymentUsecase.execute(
       PaymentParams(
@@ -39,7 +45,7 @@ class PosCore {
         deepLinkReturnSchema,
         printAutomaticaly,
         interestCharging,
-      ),
+      ), machineType
     );
   }
 
@@ -48,13 +54,14 @@ class PosCore {
     bool? permiteEditarValor,
     String? transactionCode,
     String? transactionId,
+    required String machineType
   }) async {
     return await refundUsecase.execute(
-      RefundParams(valor, permiteEditarValor, transactionCode, transactionId),
+      RefundParams(valor, permiteEditarValor, transactionCode, transactionId), machineType
     );
   }
 
-  Future<String> serialDaMaquina() async {
-    return await getSerialUsecase.execute(null);
+  Future<String> serialDaMaquina(String machineType) async {
+    return await getSerialUsecase.execute(null, machineType);
   }
 }

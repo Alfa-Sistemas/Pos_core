@@ -17,7 +17,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     on<PagamentoIniciou>(_onPagamentoIniciou);
     on<PagamentoFinalizou>(_onPagamentoFinalizou);
 
-    _streamSubscription = paymentCompleteUsecase.execute(null).listen((
+    _streamSubscription = paymentCompleteUsecase.execute(null, "").listen((
       event,
     ) {
       add(PagamentoFinalizou(result: event));

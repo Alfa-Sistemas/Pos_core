@@ -7,7 +7,7 @@ class PrintUsecase extends UsecaseInterface<Future<String>, String> {
   PrintUsecase(this._printRepository);
 
   @override
-  Future<String> execute(String params) async {
+  Future<String> execute(String params, String machineType) async {
     return _printRepository.printFile(params);
   }
 }

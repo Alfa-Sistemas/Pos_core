@@ -9,7 +9,7 @@ class RepositoryImpl implements Repository {
 
   RepositoryImpl(this._datasource);
   @override
-  Future<List<Log>> getLastLogsTransaction() async {
+  Future<List<LogEntity>> getLastLogsTransaction() async {
     return await _datasource.getLastLogsTransaction();
   }
 
@@ -57,7 +57,7 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<String> saveLog(Log log) async {
+  Future<String> saveLog(LogEntity log) async {
     return await _datasource.saveLog(log);
   }
 

@@ -8,7 +8,9 @@ Future<Map<String, dynamic>?> showEstornoModal(
   required int valor,
   required String atk,
   required bool permiteEditarValor,
+  required String transactionId,
   required String deepLinkReturnSchema,
+  required String machineType,
 }) async {
   return showModalBottomSheet(
     context: context,
@@ -20,7 +22,9 @@ Future<Map<String, dynamic>?> showEstornoModal(
         valor: valor,
         atk: atk,
         permiteEditarValor: permiteEditarValor,
+        transactionId: transactionId,
         deepLinkReturnSchema: deepLinkReturnSchema,
+        machineType: machineType,
       );
     },
   );
@@ -30,13 +34,17 @@ class EstornoModal extends StatelessWidget {
   final int valor;
   final String atk;
   final bool permiteEditarValor;
+  final String transactionId;
   final String deepLinkReturnSchema;
+  final String machineType;
 
   EstornoModal({
     required this.atk,
     required this.valor,
     required this.permiteEditarValor,
+    required this.transactionId,
     required this.deepLinkReturnSchema,
+    required this.machineType,
     super.key,
   });
 
@@ -45,8 +53,16 @@ class EstornoModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          refundBloc..add(EstornoIniciou(valor, atk, permiteEditarValor)),
+      create: (context) => refundBloc
+        ..add(
+          EstornoIniciou(
+            valor,
+            atk,
+            permiteEditarValor,
+            transactionId,
+            machineType,
+          ),
+        ),
       child: BlocListener<RefundBloc, RefundState>(
         listener: (context, state) {
           if (state is EstornoSucesso) {

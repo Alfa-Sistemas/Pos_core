@@ -7,7 +7,7 @@ class GetSerialUsecase extends UsecaseInterface<Future<String>, void> {
   GetSerialUsecase(this._deviceRepository);
 
   @override
-  Future<String> execute(void params) async {
+  Future<String> execute(void params, String machineType) async {
     return await _deviceRepository.serialDaMaquina();
   }
 }

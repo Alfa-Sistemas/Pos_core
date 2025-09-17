@@ -9,7 +9,11 @@ class EstornoIniciou extends RefundEvent {
 
   final bool permiteEditarValor;
 
-  EstornoIniciou(this.valor, this.atk, this.permiteEditarValor);
+  final String transactionId;
+
+  final String machineType;
+
+  EstornoIniciou(this.valor, this.atk, this.permiteEditarValor, this.transactionId, this.machineType);
 }
 
 class EstornoFinalizou extends RefundEvent {

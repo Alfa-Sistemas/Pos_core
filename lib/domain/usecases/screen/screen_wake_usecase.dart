@@ -7,7 +7,7 @@ class ScreenWakeUsecase extends UsecaseInterface<Future<void>, void> {
   ScreenWakeUsecase(this._repository);
 
   @override
-  Future<void> execute(void params) {
+  Future<void> execute(void params, String machineType) {
     return _repository.enableScreenWakeLock();
   }
 }

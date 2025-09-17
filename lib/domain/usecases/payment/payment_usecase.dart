@@ -1,7 +1,6 @@
 import 'package:pos_core/domain/dtos/payment_params.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
-import 'package:pos_core/domain/enums/payment_methods.dart';
 import 'package:pos_core/domain/repositories/repository.dart';
 import 'package:pos_core/domain/usecases/usecase_interface.dart';
 
@@ -29,7 +28,7 @@ class MakePaymentUsecase extends UsecaseInterface<Future<PagamentoEntity>, Payme
   }
   
   @override
-  Future<PagamentoEntity> execute(PaymentParams params) async {
+  Future<PagamentoEntity> execute(PaymentParams params, String machineType) async {
    return await _paymentRepository.makePayment(
       params.paymentMethods,
       params.parcels,

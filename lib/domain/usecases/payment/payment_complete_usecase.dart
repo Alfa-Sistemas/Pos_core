@@ -8,7 +8,7 @@ class PaymentCompleteUsecase
   PaymentCompleteUsecase(this._paymentRepository);
 
   @override
-  Stream<String> execute(void params) {
+  Stream<String> execute(void params, String machineType) {
     return _paymentRepository.paymentComplete;
   }
 }
