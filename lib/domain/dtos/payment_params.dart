@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
+import 'package:pos_core/domain/enums/payment_methods.dart';
 
 class PaymentParams {
-  final String paymentMethods;
+  final PaymentMethods paymentMethods;
   final int parcels;
   final int ammount;
   final BuildContext context;

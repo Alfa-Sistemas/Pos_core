@@ -6,6 +6,7 @@ import 'package:pos_core/domain/dtos/payment_params.dart';
 import 'package:pos_core/domain/dtos/refund_params.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
+import 'package:pos_core/domain/enums/payment_methods.dart';
 import 'package:pos_core/domain/usecases/usecase_interface.dart';
 
 var printUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "print");
@@ -39,7 +40,7 @@ class PosCore {
   }
 
   Future<PagamentoEntity> fazerPagamento(
-    String formaDePagamento,
+    PaymentMethods formaDePagamento,
     int parcels,
     int ammount,
     BuildContext context, {

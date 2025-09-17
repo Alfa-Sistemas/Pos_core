@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pos_core/domain/entities/log_entity.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
+import 'package:pos_core/domain/enums/payment_methods.dart';
 
 abstract class Datasource {
   // Device
@@ -12,7 +13,7 @@ abstract class Datasource {
   Future<String> saveLog(LogEntity log);
   // Payment
   Future<PagamentoEntity> makePayment(
-    String formaDePagamento,
+    PaymentMethods formaDePagamento,
     int parcels,
     int ammount,
     BuildContext context, {

@@ -3,6 +3,7 @@ import 'package:pos_core/data/datasource/datasource.dart';
 import 'package:pos_core/domain/entities/log_entity.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
+import 'package:pos_core/domain/enums/payment_methods.dart';
 import 'package:pos_core/domain/repositories/repository.dart';
 
 class RepositoryImpl implements Repository {
@@ -16,7 +17,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<PagamentoEntity> makePayment(
-    String formaDePagamento,
+    PaymentMethods formaDePagamento,
     int parcels,
     int ammount,
     BuildContext context, {
