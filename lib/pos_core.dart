@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pos_core/core/dependency_injection.dart';
-import 'package:pos_core/data/datasource/datasource.dart';
 import 'package:pos_core/domain/dtos/payment_params.dart';
 import 'package:pos_core/domain/dtos/refund_params.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
@@ -23,10 +22,9 @@ var paymentCompleteUsecase = GetIt.I.get<UsecaseInterface>(
   final getIt = GetIt.instance;
 
 class PosCore {
-  final Datasource datasource;
   final String machineType;
 
-  PosCore(this.datasource, this.machineType);
+  PosCore(this.machineType);
 
 
   Future<void> inject() => initInjectors();

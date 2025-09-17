@@ -1,4 +1,3 @@
-import 'package:pos_core/data/datasource/datasource.dart';
 import 'package:pos_core/data/repository_impl/repository_impl.dart';
 import 'package:pos_core/domain/repositories/repository.dart';
 import 'package:pos_core/domain/usecases/device/get_device_type_usecase.dart';
@@ -63,7 +62,7 @@ Future<void> initInjectors() async {
   getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
   getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
 
-  getIt.registerFactoryParam<PosCore, Datasource, String>(
-    (datasource, machineType) => PosCore(datasource, machineType),
+  getIt.registerFactoryParam<PosCore, String, void>(
+    (machineType, _) => PosCore(machineType),
   );
 }
