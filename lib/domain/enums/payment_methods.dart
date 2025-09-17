@@ -1,6 +1,6 @@
 enum PaymentMethods {
-  credito(2),
   debito(1),
+  credito(2),
   vale(3),
   pix(4);
 

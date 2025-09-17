@@ -22,7 +22,9 @@ class PosCore {
 
   PosCore(this.datasource);
 
-  Future<void> inject() => initInjectors();
+  static final getIt = GetIt.instance;
+
+  Future<void> inject() => initInjectors(getIt);
 
   Future<String> imprimirArquivo(String filePath, BuildContext context, String machineType) async {
     return await printUsecase.execute(filePath, machineType);

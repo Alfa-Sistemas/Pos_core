@@ -13,8 +13,8 @@ import 'package:pos_core/domain/usecases/screen/screen_wake_usecase.dart';
 import 'package:pos_core/domain/usecases/usecase_interface.dart';
 import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 
-Future<void> initInjectors() async {
-  final GetIt getIt = GetIt.instance;
+Future<void> initInjectors(GetIt getIt) async {
+  // final GetIt getIt = GetIt.instance;
   // Data
   // getIt.registerLazySingleton<Datasource>(() => Datasource());
 
