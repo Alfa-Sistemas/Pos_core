@@ -40,7 +40,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<String> printFile(String filePath, BuildContext context) async {
-    return await _datasource.printFile(filePath);
+    return await _datasource.printFile(filePath, context);
   }
 
   @override

@@ -22,7 +22,7 @@ abstract class Datasource {
   });
   Stream<String> get paymentComplete;
   // Print
-  Future<String> printFile(String filePath);
+  Future<String> printFile(String filePath, BuildContext context);
   // Refund
   Future<bool> refundSale({
     int? valor,
