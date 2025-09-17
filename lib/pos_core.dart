@@ -20,6 +20,7 @@ var screenWakeUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "screen");
 var paymentCompleteUsecase = GetIt.I.get<UsecaseInterface>(
   instanceName: "paymentComplete",
 );
+  final getIt = GetIt.instance;
 
 class PosCore {
   final Datasource datasource;
@@ -27,9 +28,8 @@ class PosCore {
 
   PosCore(this.datasource, this.machineType);
 
-  static final getIt = GetIt.instance;
 
-  Future<void> inject() => initInjectors(getIt);
+  Future<void> inject() => initInjectors();
 
   Future<String> imprimirArquivo(
     String filePath,

@@ -1,4 +1,4 @@
-import 'package:get_it/get_it.dart';
+import 'package:pos_core/data/datasource/datasource.dart';
 import 'package:pos_core/data/repository_impl/repository_impl.dart';
 import 'package:pos_core/domain/repositories/repository.dart';
 import 'package:pos_core/domain/usecases/device/get_device_type_usecase.dart';
@@ -11,29 +11,59 @@ import 'package:pos_core/domain/usecases/print/print_usecase.dart';
 import 'package:pos_core/domain/usecases/refund/refund_usecase.dart';
 import 'package:pos_core/domain/usecases/screen/screen_wake_usecase.dart';
 import 'package:pos_core/domain/usecases/usecase_interface.dart';
+import 'package:pos_core/pos_core.dart';
 import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 
-Future<void> initInjectors(GetIt getIt) async {
-  // final GetIt getIt = GetIt.instance;
+Future<void> initInjectors() async {
   // Data
-  // getIt.registerLazySingleton<Datasource>(() => Datasource());
-
   
+
   // Repositories
   getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));
 
   // Usecases
-  getIt.registerLazySingleton<UsecaseInterface>(() => MakePaymentUsecase(getIt()), instanceName: "payment");
-  getIt.registerLazySingleton<UsecaseInterface>(() => PaymentCompleteUsecase(getIt()), instanceName: "paymentComplete");
-  getIt.registerLazySingleton<UsecaseInterface>(() => RefundUsecase(getIt()), instanceName: "refund");
-  getIt.registerLazySingleton<UsecaseInterface>(() => PrintUsecase(getIt()), instanceName: "print");
-  getIt.registerLazySingleton<UsecaseInterface>(() => ScreenWakeUsecase(getIt()), instanceName: "screen");
-  getIt.registerLazySingleton<UsecaseInterface>(() => GetSerialUsecase(getIt()), instanceName: "serial");
-  getIt.registerLazySingleton<UsecaseInterface>(() => GetDeviceTypeUsecase(getIt()), instanceName: "deviceType");
-  getIt.registerLazySingleton<UsecaseInterface>(() => GetLastLogsUsecase(getIt()), instanceName: "getLog");
-  getIt.registerLazySingleton<UsecaseInterface>(() => SaveLogUsecase(getIt()), instanceName: "saveLog");
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => MakePaymentUsecase(getIt()),
+    instanceName: "payment",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => PaymentCompleteUsecase(getIt()),
+    instanceName: "paymentComplete",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => RefundUsecase(getIt()),
+    instanceName: "refund",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => PrintUsecase(getIt()),
+    instanceName: "print",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => ScreenWakeUsecase(getIt()),
+    instanceName: "screen",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => GetSerialUsecase(getIt()),
+    instanceName: "serial",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => GetDeviceTypeUsecase(getIt()),
+    instanceName: "deviceType",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => GetLastLogsUsecase(getIt()),
+    instanceName: "getLog",
+  );
+  getIt.registerLazySingleton<UsecaseInterface>(
+    () => SaveLogUsecase(getIt()),
+    instanceName: "saveLog",
+  );
 
   // Blocs
   getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
   getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
+
+  getIt.registerFactoryParam<PosCore, Datasource, String>(
+    (datasource, machineType) => PosCore(datasource, machineType),
+  );
 }
