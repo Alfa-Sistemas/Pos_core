@@ -11,6 +11,9 @@ import 'package:pos_core/domain/usecases/usecase_interface.dart';
 var printUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "print");
 var refundUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "refund");
 var getSerialUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "serial");
+var getDeviceTypeUsecase = GetIt.I.get<UsecaseInterface>(
+  instanceName: "deviceType",
+);
 var makePaymentUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "payment");
 var screenWakeUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "screen");
 var paymentCompleteUsecase = GetIt.I.get<UsecaseInterface>(
@@ -19,25 +22,31 @@ var paymentCompleteUsecase = GetIt.I.get<UsecaseInterface>(
 
 class PosCore {
   final Datasource datasource;
+  final String machineType;
 
-  PosCore(this.datasource);
+  PosCore(this.datasource, this.machineType);
 
   static final getIt = GetIt.instance;
 
   Future<void> inject() => initInjectors(getIt);
 
-  Future<String> imprimirArquivo(String filePath, BuildContext context, String machineType) async {
+  Future<String> imprimirArquivo(
+    String filePath,
+    BuildContext context,
+    String machineType,
+  ) async {
     return await printUsecase.execute(filePath, machineType);
   }
 
   Future<PagamentoEntity> fazerPagamento(
     String formaDePagamento,
     int parcels,
-    int ammount, {
+    int ammount,
+    BuildContext context, {
     String? deepLinkReturnSchema,
     bool? printAutomaticaly,
     InterestCharging? interestCharging,
-    required String machineType
+    required String machineType,
   }) async {
     return await makePaymentUsecase.execute(
       PaymentParams(
@@ -47,7 +56,9 @@ class PosCore {
         deepLinkReturnSchema,
         printAutomaticaly,
         interestCharging,
-      ), machineType
+        context,
+      ),
+      machineType,
     );
   }
 
@@ -56,14 +67,17 @@ class PosCore {
     bool? permiteEditarValor,
     String? transactionCode,
     String? transactionId,
-    required String machineType
+    required String machineType,
   }) async {
     return await refundUsecase.execute(
-      RefundParams(valor, permiteEditarValor, transactionCode, transactionId), machineType
+      RefundParams(valor, permiteEditarValor, transactionCode, transactionId),
+      machineType,
     );
   }
 
   Future<String> serialDaMaquina(String machineType) async {
     return await getSerialUsecase.execute(null, machineType);
   }
+
+  String get machineTypje => getDeviceTypeUsecase.execute(null, machineType);
 }

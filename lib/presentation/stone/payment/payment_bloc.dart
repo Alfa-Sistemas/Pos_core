@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pos_core/domain/usecases/payment/payment_complete_usecase.dart';
 import 'package:pos_core/domain/usecases/payment/payment_usecase.dart';
@@ -10,9 +11,10 @@ import 'package:pos_core/presentation/stone/payment/payment_state.dart';
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   final MakePaymentUsecase paymentUsecase;
   final PaymentCompleteUsecase paymentCompleteUsecase;
+  final BuildContext context;
   late StreamSubscription<String> _streamSubscription;
 
-  PaymentBloc(this.paymentUsecase, this.paymentCompleteUsecase)
+  PaymentBloc(this.paymentUsecase, this.paymentCompleteUsecase, this.context)
     : super(PagamentoNaoIniciado()) {
     on<PagamentoIniciou>(_onPagamentoIniciou);
     on<PagamentoFinalizou>(_onPagamentoFinalizou);
@@ -34,6 +36,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         event.formaDePagamento,
         event.parcelas,
         event.valor,
+        context,
         deepLinkReturnSchema: event.deepLinkReturnSchema,
         // printAutomaticaly: event.,
         formaDeCobranca: event.formaDeCobrancaDeJuros,

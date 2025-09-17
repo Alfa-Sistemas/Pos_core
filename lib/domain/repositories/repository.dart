@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:pos_core/domain/entities/log_entity.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
@@ -5,7 +6,7 @@ import 'package:pos_core/domain/enums/interest_charging.dart';
 abstract class Repository {
   // Device
   Future<String> serialDaMaquina();
-  String get tipoDaMaquina;
+  String getMachineType(String machineType);
   // Logs
   Future<List<LogEntity>> getLastLogsTransaction();
   Future<String> saveLog(LogEntity log);
@@ -13,14 +14,15 @@ abstract class Repository {
   Future<PagamentoEntity> makePayment(
     String formaDePagamento,
     int parcels,
-    int ammount, {
+    int ammount,
+    BuildContext context, {
     String? deepLinkReturnSchema,
     bool? printAutomaticaly,
     InterestCharging? interestCharging,
   });
   Stream<String> get paymentComplete;
   // Print
-  Future<String> printFile(String filePath);
+  Future<String> printFile(String filePath,  BuildContext context);
   // Refund
   Future<bool> refundSale({
     int? valor,

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:pos_core/data/datasource/datasource.dart';
 import 'package:pos_core/domain/entities/log_entity.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
@@ -17,7 +18,8 @@ class RepositoryImpl implements Repository {
   Future<PagamentoEntity> makePayment(
     String formaDePagamento,
     int parcels,
-    int ammount, {
+    int ammount,
+    BuildContext context, {
     String? deepLinkReturnSchema,
     bool? printAutomaticaly,
     InterestCharging? interestCharging,
@@ -26,6 +28,7 @@ class RepositoryImpl implements Repository {
       formaDePagamento,
       parcels,
       ammount,
+      context,
       deepLinkReturnSchema: deepLinkReturnSchema,
       printAutomaticaly: printAutomaticaly,
       interestCharging: interestCharging,
@@ -36,7 +39,7 @@ class RepositoryImpl implements Repository {
   Stream<String> get paymentComplete => _datasource.paymentComplete;
 
   @override
-  Future<String> printFile(String filePath) async {
+  Future<String> printFile(String filePath, BuildContext context) async {
     return await _datasource.printFile(filePath);
   }
 
@@ -67,10 +70,12 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  String get tipoDaMaquina => _datasource.tipoDaMaquina;
-
-  @override
   Future<void> enableScreenWakeLock() async {
     return await _datasource.enableScreenWakeLock();
+  }
+
+  @override
+  String getMachineType(String machineType) {
+    return _datasource.getMachineType(machineType);
   }
 }

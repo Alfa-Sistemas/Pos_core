@@ -1,6 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pos_core/domain/dtos/print_params.dart';
+
 import 'package:pos_core/domain/usecases/payment/payment_complete_usecase.dart';
 import 'package:pos_core/domain/usecases/print/print_usecase.dart';
 import 'package:pos_core/presentation/stone/print/impressora_state.dart';
@@ -11,8 +15,14 @@ class ImpressoraBloc extends Bloc<ImpressoraEvent, ImpressoraState> {
   late StreamSubscription<String> onMessageSubscription;
   final PrintUsecase printUsecase;
   final PaymentCompleteUsecase paymentCompleteUsecase;
+  final BuildContext context;
 
-  ImpressoraBloc(this.printUsecase, this.paymentCompleteUsecase) : super(ImpressoraInicial()) {
+  ImpressoraBloc(
+    this.onMessageSubscription,
+    this.printUsecase,
+    this.paymentCompleteUsecase,
+    this.context,
+  ) : super(ImpressoraInicial()) {
     on<ImpressaIniciou>(_impressoraIniciou);
     on<ImpressoraFinalizou>(_onImpressoraFinalizou);
     onMessageSubscription = paymentCompleteUsecase.execute(null, "").listen((event) {
@@ -24,7 +34,7 @@ class ImpressoraBloc extends Bloc<ImpressoraEvent, ImpressoraState> {
     ImpressaIniciou event,
     Emitter<ImpressoraState> emit,
   ) async {
-   await printUsecase.execute(event.filePath, event.machineType);
+   await printUsecase.execute(PrintParams(event.filePath, context), event.machineType);
     emit(ImpressoraImprimirEmProgresso());
   }
 
