@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pos_core/core/dependency_injection.dart';
 import 'package:pos_core/domain/dtos/payment_params.dart';
 import 'package:pos_core/domain/dtos/refund_params.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
@@ -26,8 +25,6 @@ class PosCore {
 
   PosCore(this.machineType);
 
-
-  Future<void> inject() => initInjectors();
 
   Future<String> imprimirArquivo(
     String filePath,

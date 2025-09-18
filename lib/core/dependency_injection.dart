@@ -13,12 +13,12 @@ import 'package:pos_core/domain/usecases/usecase_interface.dart';
 import 'package:pos_core/pos_core.dart';
 import 'package:pos_core/presentation/stone/refund/refund_bloc.dart';
 
-Future<void> initInjectors() async {
+Future<void> initInjectors(String machineType) async {
   // Data
   
 
   // Repositories
-  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()));
+  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()), instanceName: machineType);
 
   // Usecases
   getIt.registerLazySingleton<UsecaseInterface>(
