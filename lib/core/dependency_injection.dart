@@ -18,7 +18,7 @@ Future<void> initInjectors(String machineType) async {
   
 
   // Repositories
-  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt()), instanceName: machineType);
+  getIt.registerLazySingleton<Repository>(() => RepositoryImpl(getIt(instanceName: machineType)));
 
   // Usecases
   getIt.registerLazySingleton<UsecaseInterface>(
