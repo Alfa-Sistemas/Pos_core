@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pos_core/domain/dtos/payment_params.dart';
+import 'package:pos_core/domain/dtos/print_params.dart';
 import 'package:pos_core/domain/dtos/refund_params.dart';
 import 'package:pos_core/domain/entities/payment_entity.dart';
 import 'package:pos_core/domain/enums/interest_charging.dart';
@@ -31,7 +32,7 @@ class PosCore {
     BuildContext context,
     String machineType,
   ) async {
-    return await printUsecase.execute(filePath, machineType);
+    return await printUsecase.execute(PrintParams(filePath, context), machineType);
   }
 
   Future<PagamentoEntity> fazerPagamento(
