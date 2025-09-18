@@ -60,7 +60,6 @@ Future<void> initInjectors() async {
 
   // Blocs
   getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
-  getIt.registerLazySingleton<RefundBloc>(() => RefundBloc(getIt()));
 
   getIt.registerFactoryParam<PosCore, String, void>(
     (machineType, _) => PosCore(machineType),
