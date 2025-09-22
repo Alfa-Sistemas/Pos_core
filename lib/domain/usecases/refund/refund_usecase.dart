@@ -10,6 +10,7 @@ class RefundUsecase extends UsecaseInterface<Future<bool>, RefundParams> {
   @override
   Future<bool> execute(RefundParams params, String machineType) async {
     return await _refundRepository.refundSale(
+      context: params.context,
       valor: params.valor,
       permiteEditarValor: params.permiteEditarValor,
       transactionCode: params.transactionCode,

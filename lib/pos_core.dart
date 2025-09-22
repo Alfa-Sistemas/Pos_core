@@ -19,20 +19,22 @@ var screenWakeUsecase = GetIt.I.get<UsecaseInterface>(instanceName: "screen");
 var paymentCompleteUsecase = GetIt.I.get<UsecaseInterface>(
   instanceName: "paymentComplete",
 );
-  final getIt = GetIt.instance;
+final getIt = GetIt.instance;
 
 class PosCore {
   final String machineType;
 
   PosCore(this.machineType);
 
-
   Future<String> imprimirArquivo(
     String filePath,
     BuildContext context,
     String machineType,
   ) async {
-    return await printUsecase.execute(PrintParams(filePath, context), machineType);
+    return await printUsecase.execute(
+      PrintParams(filePath, context),
+      machineType,
+    );
   }
 
   Future<PagamentoEntity> fazerPagamento(
@@ -60,6 +62,7 @@ class PosCore {
   }
 
   Future<bool> fazerEstorno({
+    required BuildContext context,
     int? valor,
     bool? permiteEditarValor,
     String? transactionCode,
@@ -67,7 +70,13 @@ class PosCore {
     required String machineType,
   }) async {
     return await refundUsecase.execute(
-      RefundParams(valor, permiteEditarValor, transactionCode, transactionId),
+      RefundParams(
+        context,
+        valor,
+        permiteEditarValor,
+        transactionCode,
+        transactionId,
+      ),
       machineType,
     );
   }

@@ -26,6 +26,7 @@ abstract class Datasource {
   Future<String> printFile(String filePath, BuildContext context);
   // Refund
   Future<bool> refundSale({
+    required BuildContext context,
     int? valor,
     int? atk,
     bool? permiteEditarValor,

@@ -26,6 +26,7 @@ abstract class Repository {
   Future<String> printFile(String filePath,  BuildContext context);
   // Refund
   Future<bool> refundSale({
+    required BuildContext context,
     int? valor,
     bool? permiteEditarValor,
     String? transactionCode,

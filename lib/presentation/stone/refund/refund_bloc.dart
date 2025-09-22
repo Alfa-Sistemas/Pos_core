@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pos_core/domain/dtos/refund_params.dart';
 import 'package:pos_core/domain/usecases/refund/refund_usecase.dart';
@@ -25,6 +26,7 @@ class RefundBloc extends Bloc<RefundEvent, RefundState> {
 
     refundUsecase.execute(
       RefundParams(
+        event.context,
         event.valor,
         event.permiteEditarValor,
         event.atk,

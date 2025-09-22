@@ -46,6 +46,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Future<bool> refundSale({
+    required BuildContext context,
     int? valor,
     int? atk,
     bool? permiteEditarValor,
@@ -53,6 +54,7 @@ class RepositoryImpl implements Repository {
     String? transactionId,
   }) async {
     return await _datasource.refundSale(
+      context: context,
       valor: valor,
       permiteEditarValor: permiteEditarValor,
       transactionCode: transactionCode,

@@ -56,6 +56,7 @@ class EstornoModal extends StatelessWidget {
       create: (context) => refundBloc
         ..add(
           EstornoIniciou(
+            context,
             valor,
             atk,
             permiteEditarValor,

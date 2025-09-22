@@ -3,6 +3,8 @@ part of 'refund_bloc.dart';
 abstract class RefundEvent {}
 
 class EstornoIniciou extends RefundEvent {
+  final BuildContext context;
+
   final int valor;
 
   final String atk;
@@ -13,7 +15,14 @@ class EstornoIniciou extends RefundEvent {
 
   final String machineType;
 
-  EstornoIniciou(this.valor, this.atk, this.permiteEditarValor, this.transactionId, this.machineType);
+  EstornoIniciou(
+    this.context,
+    this.valor,
+    this.atk,
+    this.permiteEditarValor,
+    this.transactionId,
+    this.machineType,
+  );
 }
 
 class EstornoFinalizou extends RefundEvent {
