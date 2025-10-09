@@ -20,6 +20,7 @@ abstract class Datasource {
     String? deepLinkReturnSchema,
     bool? printAutomaticaly,
     InterestCharging? interestCharging,
+    String? atk
   });
   Stream<String> get paymentComplete;
   // Print
@@ -28,7 +29,7 @@ abstract class Datasource {
   Future<bool> refundSale({
     required BuildContext context,
     int? valor,
-    int? atk,
+    String? atk,
     bool? permiteEditarValor,
     String? transactionCode,
     String? transactionId,
