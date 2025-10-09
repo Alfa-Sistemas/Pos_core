@@ -15,6 +15,7 @@ class RefundUsecase extends UsecaseInterface<Future<bool>, RefundParams> {
       permiteEditarValor: params.permiteEditarValor,
       transactionCode: params.transactionCode,
       transactionId: params.transactionId,
+      atk: params.atk,
     );
   }
 }

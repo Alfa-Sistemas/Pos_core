@@ -67,6 +67,7 @@ class PosCore {
     bool? permiteEditarValor,
     String? transactionCode,
     String? transactionId,
+    String? atk,
     required String machineType,
   }) async {
     return await refundUsecase.execute(
@@ -76,6 +77,7 @@ class PosCore {
         permiteEditarValor,
         transactionCode,
         transactionId,
+        atk
       ),
       machineType,
     );
