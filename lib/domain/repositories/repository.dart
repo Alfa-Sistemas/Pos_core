@@ -31,6 +31,7 @@ abstract class Repository {
     bool? permiteEditarValor,
     String? transactionCode,
     String? transactionId,
+    String? atk,
   });
   // Screen
   Future<void> enableScreenWakeLock();

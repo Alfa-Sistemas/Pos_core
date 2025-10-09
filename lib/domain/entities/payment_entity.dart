@@ -8,6 +8,7 @@ class PagamentoEntity {
   final String transactionID;
   final String transactionCode;
   final String tipoMaquina;
+  final String atk;
   final String? erro;
 
   PagamentoEntity({
@@ -20,6 +21,7 @@ class PagamentoEntity {
     required this.hostNSU,
     required this.transactionID,
     required this.transactionCode,
+    required this.atk,
   }) : erro = null;
   
   PagamentoEntity.erro({required this.erro})
@@ -31,5 +33,6 @@ class PagamentoEntity {
         tipoMaquina = "",
         hostNSU = 'erro',
         transactionCode = 'erro',
+        atk = '',
         transactionID = 'erro';
 }

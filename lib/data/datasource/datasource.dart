@@ -20,7 +20,6 @@ abstract class Datasource {
     String? deepLinkReturnSchema,
     bool? printAutomaticaly,
     InterestCharging? interestCharging,
-    String? atk
   });
   Stream<String> get paymentComplete;
   // Print

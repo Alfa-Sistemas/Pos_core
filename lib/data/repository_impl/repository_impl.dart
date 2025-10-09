@@ -48,7 +48,7 @@ class RepositoryImpl implements Repository {
   Future<bool> refundSale({
     required BuildContext context,
     int? valor,
-    int? atk,
+    String? atk,
     bool? permiteEditarValor,
     String? transactionCode,
     String? transactionId,
@@ -59,6 +59,7 @@ class RepositoryImpl implements Repository {
       permiteEditarValor: permiteEditarValor,
       transactionCode: transactionCode,
       transactionId: transactionId,
+      atk: atk
     );
   }
 
